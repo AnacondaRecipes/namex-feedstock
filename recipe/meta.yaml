@@ -1,0 +1,46 @@
+{% set name = "namex" %}
+{% set version = "0.0.7" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 84ba65bc4d22bd909e3d26bf2ffb4b9529b608cb3f9a4336f776b04204ced69b
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation"
+
+requirements:
+  host:
+    - pip
+    - python
+    - wheel
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - namex
+  requires:
+    - pip
+  commands:
+    - pip check
+
+about:
+  home: https://github.com/fchollet/namex
+  license: Apache-2.0
+  license_family: APACHE
+  license_file: LICENSE
+  summary: Clean up the public namespace of your package
+  description: |
+    Namex is a simple utility to separate the implementation of your Python package and its public API.
+  doc_url: https://github.com/fchollet/namex/blob/main/README.md
+  dev_url: https://github.com/fchollet/namex
+
+extra:
+  recipe-maintainers:
+    - psteyer
